@@ -1,6 +1,6 @@
-class Hand
-  HEIRARCHY = [:highcard, :pair, :twopair, :threekind, :straight, :flush, :house, :fourkind, :straightflush]
+require 'debugger';#debugger
 
+class Hand
   attr_accessor :cards, :deck
 
   def initialize(deck)
@@ -24,13 +24,7 @@ class Hand
     card_ranks = cards.map { |card| card.rank }.reverse
     straight = straights.include?(card_ranks)
 
-    if flush && straight
-      return [:straightflush, cards]
-    elsif flush
-      return [:flush, cards]
-    elsif straight
-      return [:straight, cards]
-    end
+
 
     counts = Hash.new(0)
     card_ranks.each do |rank|
@@ -42,31 +36,50 @@ class Hand
     three = counts.key(3)
 
     two = []
-    counts.each { |rank, count| two << rank }
+    counts.each { |rank, count| two << rank if count == 2 }
 
-    if four
+    if flush && straight
+      type = :straightflush
+    elsif flush
+      type = :flush
+    elsif straight
+      type = :straight
+    elsif four
       type = :fourkind
-      type_cards = []
-      cards.each do |card|
-        if cards.rank == four
-          type_cards.shift(card)
-        else
-          type_cards << card
-        end
-      end
-      return [:fourkind, four_cards]
+      move_cards(four)
     elsif three && two.length == 1
-
+      type = :house
+      move_cards(three)
+      move_cards(two)
     elsif three
-
+      type = :threekind
+      move_cards(three)
     elsif two.length == 2
-
+      type = :twopair
+      move_cards(two[0])
+      move_cards(two[1])
     elsif two.length == 1
-
+      type = :pair
+      move_cards(two[0])
     else
-
+      type = :highcard
     end
 
+    return [type, cards]
+  end
+
+  def move_cards(target_rank)
+    type_cards = []
+
+    cards.each do |card|
+      if card.rank == target_rank
+        type_cards.unshift(card)
+      else
+        type_cards << card
+      end
+    end
+
+    self.cards = type_cards
   end
 
   def straights
