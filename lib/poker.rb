@@ -27,8 +27,8 @@ class Poker
 
 
     5.times do |i|
-      first_rank = first_hand.cards[i].rank
-      second_rank = second_hand.cards[i].rank
+      first_rank = first_type[1][i].rank
+      second_rank = second_type[1][i].rank
       next if first_rank == second_rank
 
 

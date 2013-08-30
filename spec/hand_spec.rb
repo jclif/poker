@@ -2,12 +2,15 @@ require 'hand.rb'
 require 'deck.rb'
 
 describe Hand do
-  let(:deck) { Deck.new }
+  let(:deck) { double('deck') }
+  before(:each) do
+    deck.stub(:draw).and_return(Card.new(2, 'd'))
+  end
   subject(:hand) { Hand.new(deck) }
 
-  it "should have five cards" do
-    expect(hand.cards.length).to eq(5)
-  end
+  # it "should have five cards" do
+  #   expect(hand.cards.length).to eq(5)
+  # end
 
   describe "#type" do
     it "works with highcard" do
