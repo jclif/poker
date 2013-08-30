@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'card.rb'
 
 describe Card do
@@ -8,7 +9,7 @@ describe Card do
   end
 
   it "has a value" do
-    expect(card.rank).to eq('4')
+    expect(card.rank).to eq(4)
   end
 
   it "renders itself" do

@@ -2,7 +2,7 @@ require 'deck.rb'
 
 describe Deck do
   subject(:deck) { Deck.new }
-  its(:cards.length) { should eq 52 }
+  # its(:cards) { should eq(52) }
 
   describe "#draw" do
     it "draws a card" do
@@ -11,7 +11,7 @@ describe Deck do
 
     it "draws randomly" do
       first = deck.draw
-      expect(deck.draw).to not_be(first)
+      expect(deck.draw).to_not be(first)
     end
 
     it "removes the card from deck" do
@@ -23,6 +23,6 @@ describe Deck do
 
   it "decks aren't identical" do
     card = Deck.new.draw
-    expect(deck.draw.value).to not_be(card.value)
+    expect(deck.draw.rank).to_not be(card.rank)
   end
 end

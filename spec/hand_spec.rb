@@ -15,10 +15,10 @@ describe Hand do
     it "return true higher straight vs straight"
 
     it "return false higher straightflush vs straightflush"
-
   end
 
   describe "#type" do
+
     it "works with highcard" do
       hand.cards = [Card.new(2,"d"),
                     Card.new(3,"d"),
@@ -99,7 +99,7 @@ describe Hand do
       expect(hand.type).to eq(:straight)
     end
 
-    it "works with straightflush"
+    it "works with straightflush" do
       hand.cards = [Card.new(10,"d"),
                     Card.new(11,"d"),
                     Card.new(12,"d"),
@@ -107,5 +107,6 @@ describe Hand do
                     Card.new(1,"d"),]
       expect(hand.type).to eq(:straightflush)
     end
+
   end
 end
