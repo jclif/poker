@@ -100,17 +100,5 @@ describe Hand do
     end
   end
 
-  describe "#beats?" do
-    it "returns false pair vs higher pair"
 
-    it "returns false pair vs pair with A"
-
-    it "returns true 3ofkind vs 2pair"
-
-    it "returns true higher flush vs flush"
-
-    it "return true higher straight vs straight"
-
-    it "return false higher straightflush vs straightflush"
-  end
 end
