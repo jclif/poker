@@ -18,10 +18,10 @@ class Hand
   def type
     #start greater value
     # check flush, straight
-    cards.sort_by! { |card| card.rank }.reverse
+    cards.sort_by! { |card| card.rank }.reverse!
     flush = cards.all? { |card| card.suit == cards[0].suit }
 
-    card_ranks = cards.map { |card| card.rank }.reverse
+    card_ranks = cards.map { |card| card.rank }
     straight = straights.include?(card_ranks)
 
 
@@ -44,6 +44,9 @@ class Hand
       type = :flush
     elsif straight
       type = :straight
+      if cards[0].rank == 14
+        cards << cards.shift
+      end
     elsif four
       type = :fourkind
       move_cards(four)

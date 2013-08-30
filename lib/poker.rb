@@ -1,7 +1,8 @@
-require './player.rb'
-require './deck.rb'
-require './hand.rb'
-require './card.rb'
+require 'player.rb'
+require 'deck.rb'
+require 'hand.rb'
+require 'card.rb'
+require 'debugger';debugger
 
 class Poker
   HEIRARCHY = [:highcard, :pair, :twopair, :threekind, :straight, :flush, :house, :fourkind, :straightflush]
@@ -19,9 +20,22 @@ class Poker
     first_value = HEIRARCHY.index(first_type[0])
     second_value = HEIRARCHY.index(second_type[0])
 
-    state = first_value > second_value ? 1 : -1
+    # state = first_value >= second_value ? 1 : -1
     # -1 lose, 1 win, 0 draw
+    return 1 if first_value > second_value
+    return -1 if second_value > first_value
 
-    state
+
+    5.times do |i|
+      first_rank = first_hand.cards[i].rank
+      second_rank = second_hand.cards[i].rank
+      next if first_rank == second_rank
+
+
+      return 1 if first_rank > second_rank
+      return -1 if second_rank > first_rank
+    end
+
+    0
   end
 end
