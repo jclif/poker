@@ -1,4 +1,6 @@
 class Hand
+  HEIRARCHY = [:highcard, :pair, :twopair, :threekind, :straight, :flush, :house, :fourkind, :straightflush]
+
   attr_accessor :cards, :deck
 
   def initialize(deck)
@@ -29,6 +31,42 @@ class Hand
     elsif straight
       return [:straight, cards]
     end
+
+    counts = Hash.new(0)
+    card_ranks.each do |rank|
+      counts[rank] += 1
+    end
+
+    four = counts.key(4)
+
+    three = counts.key(3)
+
+    two = []
+    counts.each { |rank, count| two << rank }
+
+    if four
+      type = :fourkind
+      type_cards = []
+      cards.each do |card|
+        if cards.rank == four
+          type_cards.shift(card)
+        else
+          type_cards << card
+        end
+      end
+      return [:fourkind, four_cards]
+    elsif three && two.length == 1
+
+    elsif three
+
+    elsif two.length == 2
+
+    elsif two.length == 1
+
+    else
+
+    end
+
   end
 
   def straights
